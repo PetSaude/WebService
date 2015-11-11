@@ -1,4 +1,4 @@
-package br.com.petsaude;
+package br.com.petsaude.usuario.dominio;
 
 public class Usuario {
 	
