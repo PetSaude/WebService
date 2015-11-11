@@ -1,4 +1,4 @@
-package br.com.petsaude.util;
+package br.com.petsaude;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConectaMysql {
 
-	private static final String URL = "jdbc:mysql://localhost/petsaudews"; 
+	private static final String URL = "jdbc:mysql://localhost/petsaudeWS"; 
 	private static final String USER = "root";
 	private static final String SENHA = "root";
 	

@@ -1,10 +1,10 @@
-package br.com.petsaude.animal.dominio;
+package br.com.petsaude;
 
 public class Animal {
 
 
     private int id;
-    private int usuario;
+    //private int usuario;
     private String nome;
     private String raca;
     private String dataNasc;
@@ -87,12 +87,12 @@ public class Animal {
         this.id = id;
     }
 
-    public int getUsuario() {
+    /*public int getUsuario() {
         return usuario;
     }
 
     public void setUsuario(int usuario) {
         this.usuario = usuario;
-    }
+    }*/
 }
 
