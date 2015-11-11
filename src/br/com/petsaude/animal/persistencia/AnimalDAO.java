@@ -1,17 +1,51 @@
-package br.com.petsaude;
+package br.com.petsaude.animal.persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import br.com.petsaude.animal.dominio.Animal;
+import br.com.petsaude.usuario.dominio.Session;
+import br.com.petsaude.usuario.dominio.Usuario;
+import br.com.petsaude.usuario.persistencia.UsuarioDAO;
+import br.com.petsaude.util.ConectaMysql;
+import br.com.petsaude.util.MeuProjetoException;
+
 public class AnimalDAO {
+	private static final AnimalDAO instance = new AnimalDAO();
 
+    private AnimalDAO() {
+        super();
+    }
 
-	public boolean inserirAnimal(Animal animal){
+    public static AnimalDAO getInstance(){
+        return instance;
+    }
+    
+    public boolean existeAnimal(Animal animal,Usuario usuario) throws MeuProjetoException{
+    	boolean condicao=false;
+		try {
+			Connection con = ConectaMysql.obtemConexao();
+			String queryBuscarUsuario="SELECT * FROM animal WHERE nome= ? and id_animal_usuario= ?";
+			PreparedStatement ppstm = con.prepareStatement(queryBuscarUsuario);
+			ppstm.setString(1, animal.getNome());
+			ppstm.setInt(2,usuario.getId());
+			ResultSet resultado = ppstm.executeQuery();
+			while(resultado.next()){
+				condicao=true;
+			}
+			con.close();
+		}catch(Exception e){
+			throw new MeuProjetoException("Erro ao conectar com o servidor");
+		}
+		return condicao;
+    
+    }
+	public void inserirAnimal(Animal animal) throws MeuProjetoException{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
-			String queryInserir = "INSERT INTO animal VALUES(null,?,?,?,?,?,?)";
+			String queryInserir = "INSERT INTO animal VALUES(null,?,?,?,?,?,?,?)";
 			PreparedStatement ppstm = con.prepareStatement(queryInserir);
 			
 			ppstm.setString(1, animal.getNome());
@@ -20,18 +54,18 @@ public class AnimalDAO {
 			ppstm.setInt(4, animal.getPeso());
 			ppstm.setString(5, animal.getSexo());
 			ppstm.setString(6, animal.getCor());
+			ppstm.setInt(7, animal.getUsuario());
 			
 			ppstm.executeUpdate();
 			
 			con.close();
 			}catch (Exception e){
-				e.printStackTrace();
-				return false;
+				throw new MeuProjetoException("Erro ao conectar com o servidor");
+			
 			}
-		return true;
 	}
 			
-	public boolean atualizarAnimal(Animal animal){
+	public void atualizarAnimal(Animal animal) throws MeuProjetoException{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
 			String queryAtualizar = "UPDATE animal SET nome = ?, raca = ?, dataNasc = ?, peso = ?, sexo = ?, cor = ? WHERE id = ?";
@@ -49,13 +83,12 @@ public class AnimalDAO {
 			
 			con.close();
 			}catch (Exception e){
-				e.printStackTrace();
-				return false;
+				throw new MeuProjetoException("Erro ao conectar com o servidor");
+				
 			}
-		return true;
 	}
 	
-	public boolean excluirAnimal(Animal animal){
+	public void excluirAnimal(Animal animal) throws MeuProjetoException{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
 			String queryDeletar = "DELETE FROM animal WHERE id = ?";
@@ -67,44 +100,42 @@ public class AnimalDAO {
 			
 			con.close();
 			}catch (Exception e){
-				e.printStackTrace();
-				return false;
-			}
-		return true;	
+				throw new MeuProjetoException("Erro ao conectar com o servidor");
+			}	
 	}
 	
-	public ArrayList<Animal> buscarTodosAnimais(){
+	public ArrayList<Animal> buscarTodosAnimais(Usuario usuario) throws MeuProjetoException{
 		ArrayList<Animal> lista = new ArrayList<Animal>();
 		
 		try{
 			Connection con = ConectaMysql.obtemConexao();
-			String queryBuscaTodos = "SELECT * FROM animal";
+			String queryBuscaTodos = "SELECT * FROM animal where id_animal_usuario = ?";
 			PreparedStatement ppstm = con.prepareStatement(queryBuscaTodos);
-			
+			ppstm.setInt(1, usuario.getId());
 			ResultSet resultado = ppstm.executeQuery();
 			
 			while(resultado.next()){
-				Animal anim = new Animal();
-				anim.setId(resultado.getInt(1));
-				anim.setNome(resultado.getString(2));
-				anim.setRaca(resultado.getString(3));
-				anim.setDataNasc(resultado.getString(4));
-				anim.setPeso(resultado.getInt(5));
-				anim.setSexo(resultado.getString(6));
-				anim.setCor(resultado.getString(7));
-				
-				lista.add(anim);
+					Animal anim = new Animal();
+					anim.setId(resultado.getInt(1));
+					anim.setNome(resultado.getString(2));
+					anim.setRaca(resultado.getString(3));
+					anim.setDataNasc(resultado.getString(4));
+					anim.setPeso(resultado.getInt(5));
+					anim.setSexo(resultado.getString(6));
+					anim.setCor(resultado.getString(7));
+					
+					lista.add(anim);
 			}
 			con.close();
 			
 		} catch (Exception e){
-				e.printStackTrace();			
+			throw new MeuProjetoException("Erro ao conectar com o servidor");			
 		}
 		
 		return lista;
 	}
 	
-	public Animal BuscarAnimalPorID(int id){
+	public Animal buscarAnimalPorID(int id) throws MeuProjetoException{
 		
 		Animal anim = null;
 		
@@ -132,15 +163,9 @@ public class AnimalDAO {
 			con.close();
 			
 		}catch (Exception e){
-				e.printStackTrace();			
+			throw new MeuProjetoException("Erro ao conectar com o servidor");			
 			}
 		
 		return anim;	
 	}
-	
-	public boolean excluirAnimal(int id){
-		
-		return excluirAnimal(new Animal(id,"","","","",0,"",""));
-	}
-	
 }
