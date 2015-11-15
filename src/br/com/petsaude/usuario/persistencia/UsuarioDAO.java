@@ -32,11 +32,12 @@ public class UsuarioDAO {
 			ppstm.setString(3, usuario.getNome());
 			ppstm.setString(4, usuario.getSenha());
 			
+			
 			ppstm.executeUpdate();
 			
 			con.close();
 			}catch (Exception e){
-				throw new MeuProjetoException("Erro ao conectar com o servidor");
+				e.printStackTrace();
 			
 			}
 	}
@@ -139,7 +140,7 @@ public class UsuarioDAO {
 				}
 				con.close();
 			}catch(Exception e){
-				throw new MeuProjetoException("Erro ao conectar com o servidor");
+				throw  new MeuProjetoException("erro ao conectar com o servidor");
 				}
 					
 				return retorno;

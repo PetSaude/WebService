@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
 
-import br.com.petsaude.usuario.dominio.Session;
 import br.com.petsaude.usuario.dominio.Usuario;
 import br.com.petsaude.usuario.persistencia.UsuarioDAO;
 import br.com.petsaude.util.MeuProjetoException;
@@ -72,7 +71,6 @@ public class UsuarioControle {
 		try{
 			if(dao.login(login,senha)!=null){
 				retorno = dao.login(login,senha);
-				Session.setUsuarioLogado(retorno);
 			}
 		}catch(Exception e){
 			throw new MeuProjetoException(e);

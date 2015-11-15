@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import br.com.petsaude.animal.dominio.Animal;
-import br.com.petsaude.usuario.dominio.Session;
 import br.com.petsaude.usuario.dominio.Usuario;
-import br.com.petsaude.usuario.persistencia.UsuarioDAO;
 import br.com.petsaude.util.ConectaMysql;
 import br.com.petsaude.util.MeuProjetoException;
 
@@ -42,7 +40,7 @@ public class AnimalDAO {
 		return condicao;
     
     }
-	public void inserirAnimal(Animal animal) throws MeuProjetoException{
+	public void inserirAnimal(Animal animal,Usuario usuario) throws MeuProjetoException{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
 			String queryInserir = "INSERT INTO animal VALUES(null,?,?,?,?,?,?,?)";
@@ -54,7 +52,7 @@ public class AnimalDAO {
 			ppstm.setInt(4, animal.getPeso());
 			ppstm.setString(5, animal.getSexo());
 			ppstm.setString(6, animal.getCor());
-			ppstm.setInt(7, animal.getUsuario());
+			ppstm.setInt(7, usuario.getId());
 			
 			ppstm.executeUpdate();
 			

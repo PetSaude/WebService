@@ -4,15 +4,14 @@ import java.util.ArrayList;
 
 import br.com.petsaude.animal.controle.AnimalControle;
 import br.com.petsaude.animal.dominio.Animal;
-import br.com.petsaude.usuario.dominio.Session;
 import br.com.petsaude.usuario.dominio.Usuario;
 import br.com.petsaude.util.MeuProjetoException;
 
 public class AnimalService {
 	AnimalControle controle= AnimalControle.getInstance();
-	public void inserirAnimal(Animal animal) throws MeuProjetoException{
+	public void inserirAnimal(Animal animal,Usuario usuario) throws MeuProjetoException{
 		try{
-			controle.inserirAnimal(animal);
+			controle.inserirAnimal(animal,usuario);
 		}catch(Exception e){
 			throw new MeuProjetoException(e);
 		}
@@ -34,12 +33,11 @@ public class AnimalService {
 		}
 	}
 	
-	public ArrayList<Animal> buscarTodosAnimais() throws MeuProjetoException{
+	public ArrayList<Animal> buscarTodosAnimais(Usuario usuario) throws MeuProjetoException{
 		ArrayList<Animal> retorno=null;
 		try {
-			if(Session.getUsuarioLogado()!=null){
-				retorno= controle.buscarTodosAnimais(Session.getUsuarioLogado());
-			}
+	
+				retorno= controle.buscarTodosAnimais(usuario);
 			
 		} catch (Exception e) {
 			throw new MeuProjetoException(e);

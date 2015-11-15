@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import br.com.petsaude.animal.dominio.Animal;
 import br.com.petsaude.animal.persistencia.AnimalDAO;
-import br.com.petsaude.usuario.dominio.Session;
 import br.com.petsaude.usuario.dominio.Usuario;
 import br.com.petsaude.util.MeuProjetoException;
 
@@ -19,18 +18,18 @@ public class AnimalControle {
         return instance;
     }
 	AnimalDAO dao=AnimalDAO.getInstance();
-	public void inserirAnimal(Animal animal) throws MeuProjetoException{
+	public void inserirAnimal(Animal animal,Usuario usuario) throws MeuProjetoException{
 		StringBuilder message = new StringBuilder();
 		try{
-			if(existeAnimal(animal,Session.getUsuarioLogado())){
+			if(existeAnimal(animal,usuario)){
 				message.append("você já possui um animal cadastrado com esse nome");
 			}
 			if(message.length() > 0){throw new MeuProjetoException(
 	                message.toString());}
 			else{
 				
-				animal.setUsuario(Session.getUsuarioLogado().getId());
-				dao.inserirAnimal(animal);
+				animal.setUsuario(usuario.getId());
+				dao.inserirAnimal(animal,usuario);
 			}
 		}catch(Exception e){
 			throw new MeuProjetoException(e);
@@ -69,9 +68,9 @@ public class AnimalControle {
 	public ArrayList<Animal> buscarTodosAnimais(Usuario usuario) throws MeuProjetoException{
 		ArrayList<Animal> retorno=null;
 		try {
-			if(Session.getUsuarioLogado()!=null){
-				retorno= dao.buscarTodosAnimais(Session.getUsuarioLogado());
-			}
+
+				retorno= dao.buscarTodosAnimais(usuario);
+			
 			
 		} catch (Exception e) {
 			throw new MeuProjetoException(e);
