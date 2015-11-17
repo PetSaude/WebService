@@ -1,5 +1,6 @@
 package br.com.petsaude;
 
+import sun.print.resources.serviceui;
 import br.com.petsaude.animal.dominio.Animal;
 import br.com.petsaude.animal.service.AnimalService;
 import br.com.petsaude.usuario.dominio.Usuario;
@@ -19,22 +20,26 @@ public class Teste {
 		Usuario userUsuario= new Usuario();
 		AnimalService animalService=new AnimalService();
 		Animal animal=new Animal();
-		animal.setNome("totozin");
+		animal.setNome("mel");
 		animal.setRaca("vira-vira");
 		animal.setDataNasc("30-10-1991");
 		animal.setPeso(40);
 		animal.setSexo("M");
 		animal.setCor("azul");
-
-		userUsuario.setEmail("Rodolfo@gmail.com");
-		userUsuario.setSenha("1234");
-		userUsuario.setLogin("dolfo");
-		userUsuario.setNome("Rodolfo");
-		userUsuario.setId(3);
+		animal.setGenero("labrador");
+		
+		userUsuario.setEmail("indiravoliveira@gmail.com");
+		userUsuario.setSenha("indijuju");
+		userUsuario.setLogin("didira");
+		userUsuario.setNome("Indira Oliveira");
+		userUsuario.setId(4);
 	
 		try {
-			usuario.login("dolfo","1234");
-			animalService.inserirAnimal(animal, userUsuario);
+					if(animalService.existeAnimal(animal, userUsuario)){
+						System.out.println("true");
+					}
+			//animalService.inserirAnimal(animal, userUsuario);
+			
 			}
 	
 		catch (Exception e) {

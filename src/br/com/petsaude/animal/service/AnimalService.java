@@ -52,5 +52,17 @@ public class AnimalService {
 			throw new MeuProjetoException(e);
 		}
 	}
+	public boolean existeAnimal(Animal animal ,Usuario usuario) throws MeuProjetoException{
+		boolean retorno = false;
+		
+		try {
+		
+			retorno=controle.existeAnimal(animal,usuario);
+			
+		} catch (Exception e) {
+			throw new MeuProjetoException(e);
+		}
+		return retorno;
+	}
 	
 }

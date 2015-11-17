@@ -27,8 +27,6 @@ public class AnimalControle {
 			if(message.length() > 0){throw new MeuProjetoException(
 	                message.toString());}
 			else{
-				
-				animal.setUsuario(usuario.getId());
 				dao.inserirAnimal(animal,usuario);
 			}
 		}catch(Exception e){
@@ -39,9 +37,8 @@ public class AnimalControle {
 		boolean retorno = false;
 		
 		try {
-			if(dao.existeAnimal(animal,usuario)){
-				retorno=dao.existeAnimal(animal,usuario);
-			}
+			retorno=dao.existeAnimal(animal,usuario);
+	
 			
 		} catch (Exception e) {
 			throw new MeuProjetoException(e);

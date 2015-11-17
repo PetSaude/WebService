@@ -4,15 +4,35 @@ public class Animal {
 
 	
     private int id;
-    private int usuario;
-    private String nome;
+    private int idUsuario;
+    public int getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	private String nome;
     private String raca;
     private String dataNasc;
     private int peso;
     private String sexo;
     private String cor;
+    private String genero;
 
-    public Animal(){
+    public String getGenero() {
+		return genero;
+	}
+
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+
+	public Animal(){
     	
     }
 
@@ -87,12 +107,5 @@ public class Animal {
         this.id = id;
     }
 
-    public int getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(int usuario) {
-        this.usuario = usuario;
-    }
 }
 

@@ -46,6 +46,24 @@ public class UsuarioService{
 		
 		
 	}
+	public boolean existeEmail(Usuario usuario) throws MeuProjetoException{
+		boolean retorno=false;
+		if(controle.existeEmail(usuario)){
+			retorno=true;
+		}
+		return retorno;
+	}
+	public boolean existeUsuario(Usuario usuario) throws MeuProjetoException{
+		boolean retorno =false;
+		try {
+			if(controle.existeUsuario(usuario)){
+				retorno=true;
+			}
+		} catch (Exception e) {
+			throw new MeuProjetoException(e);
+		}
+		return retorno;
+	}
 	
 	public ArrayList<Usuario> buscarTodosUsuarios() throws MeuProjetoException{
 		ArrayList<Usuario> retorno=null;

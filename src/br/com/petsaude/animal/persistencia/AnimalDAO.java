@@ -43,16 +43,16 @@ public class AnimalDAO {
 	public void inserirAnimal(Animal animal,Usuario usuario) throws MeuProjetoException{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
-			String queryInserir = "INSERT INTO animal VALUES(null,?,?,?,?,?,?,?)";
+			String queryInserir = "INSERT INTO animal VALUES(null,?,?,?,?,?,?,?,?)";
 			PreparedStatement ppstm = con.prepareStatement(queryInserir);
-			
 			ppstm.setString(1, animal.getNome());
-			ppstm.setString(2, animal.getRaca());
-			ppstm.setString(3, animal.getDataNasc());
-			ppstm.setInt(4, animal.getPeso());
-			ppstm.setString(5, animal.getSexo());
-			ppstm.setString(6, animal.getCor());
-			ppstm.setInt(7, usuario.getId());
+			ppstm.setString(2, animal.getGenero());
+			ppstm.setString(3, animal.getRaca());
+			ppstm.setString(4, animal.getDataNasc());
+			ppstm.setInt(5, animal.getPeso());
+			ppstm.setString(6, animal.getSexo());
+			ppstm.setString(7, animal.getCor());
+			ppstm.setInt(8, usuario.getId());
 			
 			ppstm.executeUpdate();
 			

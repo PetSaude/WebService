@@ -49,7 +49,7 @@ public class UsuarioControle {
 	public void atualizarUsuario(Usuario usuario) throws Exception{
 		try{
 			dao.atualizarUsuario(usuario);
-			
+		
 		}
 		catch(Exception e){
 			throw new MeuProjetoException(e);
@@ -64,6 +64,24 @@ public class UsuarioControle {
 			throw new MeuProjetoException(e);
 		}
 		
+	}
+	public boolean existeEmail(Usuario usuario) throws MeuProjetoException{
+		boolean retorno =false;
+		if(dao.existeEmail(usuario)){
+			retorno=true;
+		}
+		return retorno;
+	}
+	public boolean existeUsuario(Usuario usuario) throws MeuProjetoException{
+		boolean retorno =false;
+		try {
+			if(dao.existeUsuario(usuario)){
+				retorno=true;
+			}
+		} catch (Exception e) {
+			throw new MeuProjetoException(e);
+		}
+		return retorno;
 	}
 	
 	public Usuario login(String login, String senha) throws Exception{
