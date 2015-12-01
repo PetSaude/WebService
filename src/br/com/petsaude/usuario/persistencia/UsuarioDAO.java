@@ -24,13 +24,14 @@ public class UsuarioDAO {
 	public void inserirUsuario(Usuario usuario) throws MeuProjetoException{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
-			String queryInserir = "INSERT INTO usuario VALUES(null,?,?,?,?)";
+			String queryInserir = "INSERT INTO usuario VALUES(null,?,?,?,?,?)";
 			PreparedStatement ppstm = con.prepareStatement(queryInserir);
 			
 			ppstm.setString(1, usuario.getLogin());
 			ppstm.setString(2, usuario.getEmail());
 			ppstm.setString(3, usuario.getNome());
 			ppstm.setString(4, usuario.getSenha());
+			ppstm.setInt(5,0);
 			
 			
 			ppstm.executeUpdate();
@@ -41,7 +42,31 @@ public class UsuarioDAO {
 			
 			}
 	}
-			
+	public void alterarSenha(String senha,Usuario usuario) throws MeuProjetoException{
+		try{
+			Connection con = ConectaMysql.obtemConexao();
+			String queryAtualizar = "UPDATE usuario SET senha = ? WHERE id = ?";
+			PreparedStatement ppstm = con.prepareStatement(queryAtualizar);
+			ppstm.setString(1,senha);
+			ppstm.setInt(2,usuario.getId());
+			ppstm.execute();
+		}catch(Exception e){
+			throw new MeuProjetoException("impossivel alterar senha");
+		}
+	}
+	public void alterarEmail(String email,Usuario usuario) throws MeuProjetoException{
+		try{
+			Connection con = ConectaMysql.obtemConexao();
+			String queryAtualizar = "UPDATE usuario SET email = ? WHERE id = ?";
+			PreparedStatement ppstm = con.prepareStatement(queryAtualizar);
+			ppstm.setString(1,email);
+			ppstm.setInt(2,usuario.getId());
+			ppstm.execute();
+		}catch(Exception e){
+			throw new MeuProjetoException("impossivel alterar email");
+		}
+		
+}
 	public void atualizarUsuario(Usuario usuario) throws MeuProjetoException{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
@@ -83,7 +108,7 @@ public class UsuarioDAO {
 		boolean condicao=false;
 		try {
 			Connection con = ConectaMysql.obtemConexao();
-			String queryBuscarUsuario="SELECT login FROM USUARIO WHERE login= ?" ;
+			String queryBuscarUsuario="SELECT login FROM usuario WHERE login= ?" ;
 			PreparedStatement ppstm = con.prepareStatement(queryBuscarUsuario);
 			ppstm.setString(1, usuario.getLogin());
 			ResultSet resultado = ppstm.executeQuery();
@@ -101,7 +126,7 @@ public class UsuarioDAO {
 		boolean condicao=false;
 		try {
 			Connection con = ConectaMysql.obtemConexao();
-			String queryBuscarUsuario="SELECT email FROM USUARIO WHERE email= ?" ;
+			String queryBuscarUsuario="SELECT email FROM usuario WHERE email= ?" ;
 			PreparedStatement ppstm = con.prepareStatement(queryBuscarUsuario);
 			ppstm.setString(1, usuario.getEmail());
 			ResultSet resultado = ppstm.executeQuery();
@@ -121,26 +146,31 @@ public class UsuarioDAO {
 			Usuario retorno = null;
 			try {
 				Connection con = ConectaMysql.obtemConexao();
-				String queryBuscarUsuario="SELECT * FROM USUARIO WHERE login= ? and senha = ?" ;
+				String queryBuscarUsuario="SELECT * FROM usuario WHERE login= ? and senha = ?" ;
 				PreparedStatement ppstm = con.prepareStatement(queryBuscarUsuario);
 				ppstm.setString(1,login);
 				ppstm.setString(2,senha);
 				
 				ResultSet resultado = ppstm.executeQuery();
 				while(resultado.next()){
-
-						Usuario usr=new Usuario();
-						usr.setId(resultado.getInt(1));
-						usr.setLogin(resultado.getString(2));
-						usr.setEmail(resultado.getString(3));
-						usr.setNome(resultado.getString(4));
-						usr.setSenha(resultado.getString(5));
-						retorno=usr;
+						if (resultado.getInt(6)==0){
+							Usuario usr=new Usuario();
+							usr.setId(resultado.getInt(1));
+							usr.setLogin(resultado.getString(2));
+							usr.setEmail(resultado.getString(3));
+							usr.setNome(resultado.getString(4));
+							usr.setSenha(resultado.getString(5));
+							retorno=usr;
+						}
+						else{
+							return retorno;
+						}
+						
 					
 				}
 				con.close();
 			}catch(Exception e){
-				throw  new MeuProjetoException("erro ao conectar com o servidor");
+				e.printStackTrace();
 				}
 					
 				return retorno;

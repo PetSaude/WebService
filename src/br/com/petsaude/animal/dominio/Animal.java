@@ -18,17 +18,16 @@ public class Animal {
     private String raca;
     private String dataNasc;
     private int peso;
-    private String sexo;
-    private String cor;
-    private String genero;
+    private String prontuario;
+    
 
-    public String getGenero() {
-		return genero;
+	public String getProntuario() {
+		return prontuario;
 	}
 
 
-	public void setGenero(String genero) {
-		this.genero = genero;
+	public void setProntuario(String prontuario) {
+		this.prontuario = prontuario;
 	}
 
 
@@ -46,8 +45,7 @@ public class Animal {
 		this.raca = raca;
 		this.dataNasc = dataNasc;
 		this.peso = peso;
-		this.sexo = sexo;
-		this.cor = cor;
+		
 	}
 
 
@@ -83,21 +81,6 @@ public class Animal {
         this.peso = peso;
     }
 
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getCor() {
-        return cor;
-    }
-
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
 
     public int getId() {
         return id;

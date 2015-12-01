@@ -23,6 +23,12 @@ public class UsuarioControle {
     public static UsuarioControle getInstance(){
         return instance;
     }
+    public void alterarSenha(String senha,Usuario usuario) throws MeuProjetoException{
+			dao.alterarSenha(senha,usuario);
+	}
+    public void alterarEmail(String email,Usuario usuario) throws MeuProjetoException{
+    	dao.alterarEmail(email, usuario);
+    }
     public void inserirUsuario(Usuario usuario)throws Exception{
     	StringBuilder message = new StringBuilder(); 
     	

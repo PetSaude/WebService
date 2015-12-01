@@ -11,38 +11,23 @@ public class UsuarioService{
 	private UsuarioControle controle =UsuarioControle.getInstance();
 	
 	
-	public void inserirUsuario(Usuario usuario)throws MeuProjetoException{
-		try{
+	public void inserirUsuario(Usuario usuario)throws Exception{
 			controle.inserirUsuario(usuario);
-		}catch (Exception e){
-			throw new MeuProjetoException(e);
-		}
+		
 		
 	}
-	public Usuario login(String login,String senha) throws MeuProjetoException{
-		Usuario retorno = null;
-		try {
-			retorno= controle.login(login, senha);
-		} catch (Exception e) {
-			throw new MeuProjetoException(e);
-		}
-		return retorno;
+	public Usuario login(String login,String senha) throws Exception{
+		return controle.login(login, senha);
+		
 		
 	}
-	public void excluirUsuario(Usuario usuario) throws MeuProjetoException{
-		try{
+	public void excluirUsuario(Usuario usuario) throws Exception{
 			controle.excluirUsuario(usuario);
-			
-		}catch(Exception e){		
-			throw new MeuProjetoException(e);
-		}
+		
 	}	
-	public void atualizarUsuario(Usuario usuario) throws MeuProjetoException{
-		try {
+	public void atualizarUsuario(Usuario usuario) throws Exception{
 			controle.atualizarUsuario(usuario);
-		} catch (Exception e) {
-			throw new MeuProjetoException(e);
-		}
+		
 		
 		
 	}
@@ -74,5 +59,12 @@ public class UsuarioService{
 		}
 		return retorno;
 		
+	}
+	public void alterarSenha(String senha,Usuario usuario) throws MeuProjetoException{
+			controle.alterarSenha(senha,usuario);
+		
+	}
+	public void alterarEmail(String email,Usuario usuario) throws MeuProjetoException{
+		controle.alterarEmail(email,usuario);
 	}
 }

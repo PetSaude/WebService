@@ -64,5 +64,12 @@ public class AnimalService {
 		}
 		return retorno;
 	}
+	public void atualizaProntuario(String prontuario,int id) throws MeuProjetoException{
+		try {
+			controle.atualizaProntuario(prontuario, id);
+		} catch (Exception e) {
+			throw new MeuProjetoException(e);
+		}
+	}
 	
 }

@@ -82,4 +82,11 @@ public class AnimalControle {
 			throw new MeuProjetoException(e);
 		}
 	}
+	public void atualizaProntuario(String prontuario,int id){
+		try {
+			dao.atualizaProntuario(prontuario, id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 }
