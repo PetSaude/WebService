@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.apache.axis2.corba.idl.types.ExceptionType;
+
 import br.com.petsaude.usuario.dominio.Usuario;
 import br.com.petsaude.util.ConectaMysql;
 import br.com.petsaude.util.MeuProjetoException;
@@ -82,7 +84,7 @@ public class UsuarioDAO {
 			ppstm.executeUpdate();
 			con.close();
 			}catch (Exception e){
-				throw new MeuProjetoException("Erro ao conectar com o servidor");
+				e.printStackTrace();
 				
 				
 			}
@@ -117,12 +119,12 @@ public class UsuarioDAO {
 			}
 			con.close();
 		}catch(Exception e){
-			throw new MeuProjetoException("Erro ao conectar com o servidor");
+			e.printStackTrace();
 		}
 		return condicao;
 		
 	}
-	public boolean existeEmail(Usuario usuario) throws MeuProjetoException{
+	public boolean existeEmail(Usuario usuario) throws Exception{
 		boolean condicao=false;
 		try {
 			Connection con = ConectaMysql.obtemConexao();
@@ -135,13 +137,13 @@ public class UsuarioDAO {
 			}
 			con.close();
 		}catch(Exception e){
-			throw new MeuProjetoException("Erro ao conectar com o servidor");
+			throw new Exception(e);
 		}
 		return condicao;
 		
 	}
 	
-	public Usuario login(String login, String senha) throws MeuProjetoException{
+	public Usuario login(String login, String senha) throws Exception{
 			
 			Usuario retorno = null;
 			try {
@@ -170,7 +172,7 @@ public class UsuarioDAO {
 				}
 				con.close();
 			}catch(Exception e){
-				e.printStackTrace();
+				throw new Exception(e);
 				}
 					
 				return retorno;
@@ -178,7 +180,7 @@ public class UsuarioDAO {
 			
 			
 
-	public ArrayList<Usuario> buscarTodosUsuarios() throws MeuProjetoException{
+	public ArrayList<Usuario> buscarTodosUsuarios() throws Exception{
 		ArrayList<Usuario> lista = new ArrayList<Usuario>();
 		
 		try{
@@ -202,13 +204,13 @@ public class UsuarioDAO {
 			con.close();
 			
 		} catch (Exception e){
-				throw new MeuProjetoException("Erro ao conectar com o servidor");			
+				throw new Exception(e);			
 		}
 		
 		return lista;
 	}
 	
-	public Usuario BuscarUsuarioPorID(int id) throws MeuProjetoException{
+	public Usuario BuscarUsuarioPorID(int id) throws Exception{
 		
 		Usuario usr = null;
 		
@@ -234,7 +236,7 @@ public class UsuarioDAO {
 			con.close();
 			
 		}catch (Exception e){
-			throw new MeuProjetoException("Erro ao conectar com o servidor");			
+			throw new Exception(e);			
 			}
 		
 		return usr;	

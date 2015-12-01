@@ -47,8 +47,9 @@ public class Teste {
 			 Usuario  usr= new Usuario();
 			 usr.setId(1);
 			UsuarioService us = new UsuarioService();
-			us.alterarEmail("petsaude@petsaude.com",usr );
-				
+			Usuario user = us.login("Alex","bispo");
+			System.out.println(user.getNome());
+			System.out.println(user.getId());
 			
 				//animalService.atualizarAnimal(animal);
 			

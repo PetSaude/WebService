@@ -6,8 +6,7 @@ import java.sql.SQLException;
 
 public class ConectaMysql {
 
-	private static final String URL = "jdbc:mysql://mysql03.labsolucoes.hospedagemdesites.ws/";
-	private static final String DATA_BASE="labsolucoes2";
+	private static final String URL = "jdbc:mysql://mysql03.labsolucoes.hospedagemdesites.ws/labsolucoes2";
 	private static final String USER = "labsolucoes2";
 	private static final String SENHA = "petsaude2015";
 	
@@ -19,6 +18,6 @@ public class ConectaMysql {
 			e.printStackTrace();
 		}
 		
-		return DriverManager.getConnection(URL+DATA_BASE, USER, SENHA);
+		return DriverManager.getConnection(URL, USER, SENHA);
 	}
 }

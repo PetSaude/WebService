@@ -31,7 +31,7 @@ public class UsuarioService{
 		
 		
 	}
-	public boolean existeEmail(Usuario usuario) throws MeuProjetoException{
+	public boolean existeEmail(Usuario usuario) throws Exception{
 		boolean retorno=false;
 		if(controle.existeEmail(usuario)){
 			retorno=true;

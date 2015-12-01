@@ -71,7 +71,7 @@ public class UsuarioControle {
 		}
 		
 	}
-	public boolean existeEmail(Usuario usuario) throws MeuProjetoException{
+	public boolean existeEmail(Usuario usuario) throws Exception{
 		boolean retorno =false;
 		if(dao.existeEmail(usuario)){
 			retorno=true;

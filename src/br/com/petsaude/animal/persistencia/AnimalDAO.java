@@ -21,7 +21,7 @@ public class AnimalDAO {
     public static AnimalDAO getInstance(){
         return instance;
     }
-    public void atualizaProntuario(String prontuario,int id) throws MeuProjetoException{
+    public void atualizaProntuario(String prontuario,int id) throws Exception{
     	Connection con;
 		try {
 			con = ConectaMysql.obtemConexao();
@@ -32,13 +32,13 @@ public class AnimalDAO {
 			ppstm.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new MeuProjetoException("erro no servidor");
+			throw new Exception(e);
 		}
 		
 		
 	}
     
-    public boolean existeAnimal(Animal animal,Usuario usuario) throws MeuProjetoException{
+    public boolean existeAnimal(Animal animal,Usuario usuario) throws Exception{
     	boolean condicao=false;
 		try {
 			Connection con = ConectaMysql.obtemConexao();
@@ -52,12 +52,12 @@ public class AnimalDAO {
 			}
 			con.close();
 		}catch(Exception e){
-			throw new MeuProjetoException("Erro ao conectar com o servidor");
+			throw new Exception(e);
 		}
 		return condicao;
     
     }
-	public void inserirAnimal(Animal animal,Usuario usuario) throws MeuProjetoException{
+	public void inserirAnimal(Animal animal,Usuario usuario) throws Exception{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
 			String queryInserir = "INSERT INTO animal VALUES(null,?,?,?,?,?,?)";
@@ -74,12 +74,12 @@ public class AnimalDAO {
 			
 			con.close();
 			}catch (Exception e){
-				throw new MeuProjetoException("Erro ao conectar com o servidor");
+				throw new Exception(e);
 			
 			}
 	}
 			
-	public void atualizarAnimal(Animal animal) throws MeuProjetoException{
+	public void atualizarAnimal(Animal animal) throws Exception{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
 			String queryAtualizar = "UPDATE animal SET nome = ?, raca = ?, dataNasc = ?,peso = ? , prontuario = ? WHERE id = ?";
@@ -100,7 +100,7 @@ public class AnimalDAO {
 			}
 	}
 	
-	public void excluirAnimal(Animal animal) throws MeuProjetoException{
+	public void excluirAnimal(Animal animal) throws Exception{
 		try{
 			Connection con = ConectaMysql.obtemConexao();
 			String queryDeletar = "DELETE FROM animal WHERE id = ?";
@@ -112,11 +112,11 @@ public class AnimalDAO {
 			
 			con.close();
 			}catch (Exception e){
-				throw new MeuProjetoException("Erro ao conectar com o servidor");
+				throw new Exception(e);
 			}	
 	}
 	
-	public ArrayList<Animal> buscarTodosAnimais(Usuario usuario) throws MeuProjetoException{
+	public ArrayList<Animal> buscarTodosAnimais(Usuario usuario) throws Exception{
 		ArrayList<Animal> lista = new ArrayList<Animal>();
 		
 		try{
@@ -143,13 +143,13 @@ public class AnimalDAO {
 			con.close();
 			
 		} catch (Exception e){
-			throw new MeuProjetoException("Erro ao conectar com o servidor");			
+			throw new Exception(e);			
 		}
 		
 		return lista;
 	}
 	
-	public Animal buscarAnimalPorID(int id) throws MeuProjetoException{
+	public Animal buscarAnimalPorID(int id) throws Exception{
 		
 		Animal anim = null;
 		
@@ -177,7 +177,7 @@ public class AnimalDAO {
 			con.close();
 			
 		}catch (Exception e){
-			throw new MeuProjetoException("Erro ao conectar com o servidor");			
+			throw new Exception(e);			
 			}
 		
 		return anim;	
